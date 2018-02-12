@@ -71,10 +71,7 @@ func run() {
 	writer.Flush()
 
 	// Setup fonts
-	displayAtlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
-	displayOrig := pixel.V(20, 20)
-	displayTxt := text.New(displayOrig, displayAtlas)
-	displayTxt.Color = colornames.Darkslategrey
+	displayTxt := initDisplayText()
 	fmt.Fprintln(displayTxt, locale["gameTitle"])
 
 	// Setup GUI window
@@ -108,4 +105,12 @@ func initLogger() (*bufio.Writer, *log.Logger) {
 	writer := bufio.NewWriter(f)
 	logger := log.New(writer, "INFO: ", log.Lshortfile)
 	return writer, logger
+}
+
+func initDisplayText() *text.Text {
+	atlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
+	orig := pixel.V(20, 20)
+	txt := text.New(orig, atlas)
+	txt.Color = colornames.Darkslategrey
+	return txt
 }
