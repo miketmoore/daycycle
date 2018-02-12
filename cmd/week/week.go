@@ -71,11 +71,8 @@ func run() {
 	writer.Flush()
 
 	// Setup fonts
-	displayTxt := initDisplayText()
-	fmt.Fprintln(displayTxt, locale["gameTitle"])
-
-	bodyTxt := initBodyText()
-	fmt.Fprintln(bodyTxt, "I don't care if Monday's blue...")
+	txt := initText()
+	fmt.Fprintln(txt, locale["gameTitle"])
 
 	// Setup GUI window
 	cfg := pixelgl.WindowConfig{
@@ -90,8 +87,7 @@ func run() {
 
 	for !win.Closed() {
 		win.Clear(colornames.Antiquewhite)
-		displayTxt.Draw(win, pixel.IM.Scaled(displayTxt.Orig, 2))
-		bodyTxt.Draw(win, pixel.IM.Scaled(bodyTxt.Orig, 1))
+		txt.Draw(win, pixel.IM.Scaled(txt.Orig, 2))
 		win.Update()
 		writer.Flush()
 	}
@@ -111,15 +107,7 @@ func initLogger() (*bufio.Writer, *log.Logger) {
 	return writer, logger
 }
 
-func initDisplayText() *text.Text {
-	atlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
-	orig := pixel.V(20, 20)
-	txt := text.New(orig, atlas)
-	txt.Color = colornames.Darkslategrey
-	return txt
-}
-
-func initBodyText() *text.Text {
+func initText() *text.Text {
 	atlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
 	orig := pixel.V(20, 50)
 	txt := text.New(orig, atlas)
