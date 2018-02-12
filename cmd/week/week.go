@@ -74,6 +74,7 @@ func getFlags() bool {
 	return *d
 }
 
+// pixel "main"
 func run() {
 	debug = getFlags()
 
@@ -105,6 +106,7 @@ func run() {
 	}
 }
 
+// pixel takes over the main function
 func main() {
 	pixelgl.Run(run)
 }
