@@ -2,12 +2,15 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
+	"github.com/faiface/pixel/text"
 	"golang.org/x/image/colornames"
+	"golang.org/x/image/font/basicfont"
 )
 
 // Week is an implementation of a finite state machine in Go.
@@ -57,15 +60,26 @@ func (s StateSunday) HandleInput(win *pixelgl.Window) {
 // Night
 // Midnight
 
+var locale = map[string]string{
+	"gameTitle": "One Week",
+}
+
 func run() {
 	// Setup a logger
 	writer, logger := initLogger()
 	logger.Print("run")
 	writer.Flush()
 
+	// Setup fonts
+	displayAtlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
+	displayOrig := pixel.V(20, 20)
+	displayTxt := text.New(displayOrig, displayAtlas)
+	displayTxt.Color = colornames.Darkslategrey
+	fmt.Fprintln(displayTxt, locale["gameTitle"])
+
 	// Setup GUI window
 	cfg := pixelgl.WindowConfig{
-		Title:  "One Week",
+		Title:  locale["gameTitle"],
 		Bounds: pixel.R(0, 0, 400, 225),
 		VSync:  true,
 	}
@@ -76,6 +90,7 @@ func run() {
 
 	for !win.Closed() {
 		win.Clear(colornames.Antiquewhite)
+		displayTxt.Draw(win, pixel.IM.Scaled(displayTxt.Orig, 2))
 		win.Update()
 		writer.Flush()
 	}
