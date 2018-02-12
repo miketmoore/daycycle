@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -60,11 +61,22 @@ func (s StateSunday) HandleInput(win *pixelgl.Window) {
 // Night
 // Midnight
 
+var tmpFile string = "/tmp/week"
+var debug bool = false
+
 var locale = map[string]string{
 	"gameTitle": "One Week",
 }
 
+func getFlags() bool {
+	d := flag.Bool("d", false, "enable debug mode, which logs to a temporary file")
+	flag.Parse()
+	return *d
+}
+
 func run() {
+	debug = getFlags()
+
 	// Setup a logger
 	writer, logger := initLogger()
 	logger.Print("run")
@@ -98,7 +110,7 @@ func main() {
 }
 
 func initLogger() (*bufio.Writer, *log.Logger) {
-	f, err := os.Create("/tmp/dat2")
+	f, err := os.Create(tmpFile)
 	if err != nil {
 		panic(err)
 	}
