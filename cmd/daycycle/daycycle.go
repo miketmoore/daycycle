@@ -60,14 +60,8 @@ type State interface {
 
 // FSM Parts of a Day
 type Day struct {
-	States       map[string]State
+	States       map[StateName]State
 	CurrentState State
-}
-
-func (d *Day) Start(stateKey string) {
-	fmt.Printf("Day Start stateKey: %s\n", stateKey)
-	d.CurrentState = d.States[stateKey]
-	fmt.Printf("Day Start CurrentState type: %T\n", d.CurrentState)
 }
 
 // Dawn
@@ -76,7 +70,7 @@ type StateDawn struct {
 }
 
 func (s StateDawn) Go() {
-	s.context.CurrentState = s.context.States["morning"]
+	s.context.CurrentState = s.context.States[Morning]
 }
 
 func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
@@ -99,7 +93,7 @@ type StateMorning struct {
 }
 
 func (s StateMorning) Go() {
-	s.context.CurrentState = s.context.States["noon"]
+	s.context.CurrentState = s.context.States[Noon]
 }
 
 func (s StateMorning) Name() string {
@@ -122,7 +116,7 @@ type StateNoon struct {
 }
 
 func (s StateNoon) Go() {
-	s.context.CurrentState = s.context.States["afternoon"]
+	s.context.CurrentState = s.context.States[Afternoon]
 }
 
 func (s StateNoon) Name() string {
@@ -145,7 +139,7 @@ type StateAfternoon struct {
 }
 
 func (s StateAfternoon) Go() {
-	s.context.CurrentState = s.context.States["dusk"]
+	s.context.CurrentState = s.context.States[Dusk]
 }
 
 func (s StateAfternoon) Name() string {
@@ -168,7 +162,7 @@ type StateDusk struct {
 }
 
 func (s StateDusk) Go() {
-	s.context.CurrentState = s.context.States["evening"]
+	s.context.CurrentState = s.context.States[Evening]
 }
 
 func (s StateDusk) Name() string {
@@ -191,7 +185,7 @@ type StateEvening struct {
 }
 
 func (s StateEvening) Go() {
-	s.context.CurrentState = s.context.States["night"]
+	s.context.CurrentState = s.context.States[Night]
 }
 
 func (s StateEvening) Name() string {
@@ -214,7 +208,7 @@ type StateNight struct {
 }
 
 func (s StateNight) Go() {
-	s.context.CurrentState = s.context.States["midnight"]
+	s.context.CurrentState = s.context.States[Midnight]
 }
 
 func (s StateNight) Name() string {
@@ -237,7 +231,7 @@ type StateMidnight struct {
 }
 
 func (s StateMidnight) Go() {
-	s.context.CurrentState = s.context.States["dawn"]
+	s.context.CurrentState = s.context.States[Dawn]
 }
 
 func (s StateMidnight) Name() string {
@@ -291,17 +285,17 @@ func run() {
 	var day = &Day{}
 
 	// Initialize states and assign to context
-	day.States = map[string]State{
-		"dawn":      StateDawn{day},
-		"morning":   StateMorning{day},
-		"noon":      StateNoon{day},
-		"afternoon": StateAfternoon{day},
-		"dusk":      StateDusk{day},
-		"evening":   StateEvening{day},
-		"night":     StateNight{day},
-		"midnight":  StateMidnight{day},
+	day.States = map[StateName]State{
+		Dawn:      StateDawn{day},
+		Morning:   StateMorning{day},
+		Noon:      StateNoon{day},
+		Afternoon: StateAfternoon{day},
+		Dusk:      StateDusk{day},
+		Evening:   StateEvening{day},
+		Night:     StateNight{day},
+		Midnight:  StateMidnight{day},
 	}
-	day.CurrentState = day.States["dawn"]
+	day.CurrentState = day.States[Dawn]
 
 	for !win.Closed() {
 		txt.Draw(win, pixel.IM.Moved(win.Bounds().Center().Sub(txt.Bounds().Center())))
