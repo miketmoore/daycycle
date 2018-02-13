@@ -25,6 +25,17 @@ var locale = map[string]string{
 	"gameTitle": "Day Cycle",
 }
 
+var palette = map[string]color.RGBA{
+	"dawn":      color.RGBA{247, 118, 37, 1},
+	"morning":   color.RGBA{237, 182, 83, 1},
+	"noon":      color.RGBA{51, 193, 255, 1},
+	"afternoon": color.RGBA{51, 193, 255, 1},
+	"dusk":      color.RGBA{92, 56, 214, 1},
+	"evening":   color.RGBA{51, 193, 255, 1},
+	"night":     color.RGBA{74, 58, 94, 1},
+	"midnight":  color.RGBA{30, 24, 38, 1},
+}
+
 var tmpFile string = "/tmp/week"
 var debug bool = false
 
@@ -70,7 +81,7 @@ func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{247, 118, 37, 1})
+		win.Clear(palette["dawn"])
 	}
 }
 
@@ -99,7 +110,7 @@ func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{237, 182, 83, 1})
+		win.Clear(palette["morning"])
 	}
 }
 
@@ -124,7 +135,7 @@ func (s StateNoon) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{51, 193, 255, 1})
+		win.Clear(palette["noon"])
 	}
 }
 
@@ -149,7 +160,7 @@ func (s StateAfternoon) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{51, 193, 255, 1})
+		win.Clear(palette["afternoon"])
 	}
 }
 
@@ -174,7 +185,7 @@ func (s StateDusk) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{92, 56, 214, 1})
+		win.Clear(palette["dusk"])
 	}
 }
 
@@ -199,7 +210,7 @@ func (s StateEvening) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{51, 193, 255, 1})
+		win.Clear(palette["evening"])
 	}
 }
 
@@ -224,7 +235,7 @@ func (s StateNight) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(color.RGBA{74, 58, 94, 1})
+		win.Clear(palette["night"])
 	}
 }
 
@@ -248,7 +259,7 @@ func (s StateMidnight) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Clear()
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
-		win.Clear(color.RGBA{30, 24, 38, 1})
+		win.Clear(palette["midnight"])
 	}
 }
 
