@@ -15,7 +15,7 @@ import (
 	"golang.org/x/image/font/basicfont"
 )
 
-// Week is an implementation of a finite state machine in Go.
+// "Day Cycle" is an implementation of the state pattern in Go.
 // Each state represents a section of time during the week.
 // I guess this is a type of clock.
 
