@@ -279,8 +279,11 @@ func run() {
 
 	// Setup fonts
 	txt := initText()
-	fmt.Fprintln(txt, locale["gameTitle"])
-	fmt.Fprintln(txt, locale["gameSubTitle"])
+	lines := []string{locale["gameTitle"], locale["gameSubTitle"]}
+	for _, line := range lines {
+		txt.Dot.X -= txt.BoundsOf(line).W() / 2
+		fmt.Fprintln(txt, line)
+	}
 
 	// Setup GUI window
 	cfg := pixelgl.WindowConfig{
