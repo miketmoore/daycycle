@@ -64,13 +64,6 @@ type Day struct {
 	CurrentState State
 }
 
-func (d *Day) Change(stateKey string) {
-	fmt.Printf("Day Change to %s\n", stateKey)
-	fmt.Printf("0 %T\n", d.CurrentState)
-	d.CurrentState = d.States[stateKey]
-	fmt.Printf("1 %T\n", d.CurrentState)
-}
-
 func (d *Day) Start(stateKey string) {
 	fmt.Printf("Day Start stateKey: %s\n", stateKey)
 	d.CurrentState = d.States[stateKey]
