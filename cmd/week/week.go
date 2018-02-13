@@ -21,6 +21,13 @@ import (
 
 // https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
 
+var locale = map[string]string{
+	"gameTitle": "7 Days a Week",
+}
+
+var tmpFile string = "/tmp/week"
+var debug bool = false
+
 type State interface {
 	Name() string
 	Update(*text.Text, *pixelgl.Window)
@@ -57,11 +64,14 @@ func (s StateDawn) Go() {
 }
 
 func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{247, 118, 37, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{247, 118, 37, 1})
+	}
 }
 
 func (s StateDawn) Name() string {
@@ -83,11 +93,14 @@ func (s StateMorning) Name() string {
 }
 
 func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{237, 182, 83, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{237, 182, 83, 1})
+	}
 }
 
 // Noon
@@ -105,11 +118,14 @@ func (s StateNoon) Name() string {
 }
 
 func (s StateNoon) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{51, 193, 255, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{51, 193, 255, 1})
+	}
 }
 
 // Afternoon
@@ -127,11 +143,14 @@ func (s StateAfternoon) Name() string {
 }
 
 func (s StateAfternoon) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{51, 193, 255, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{51, 193, 255, 1})
+	}
 }
 
 // Dusk
@@ -149,11 +168,14 @@ func (s StateDusk) Name() string {
 }
 
 func (s StateDusk) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{92, 56, 214, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{92, 56, 214, 1})
+	}
 }
 
 // Evening
@@ -171,11 +193,14 @@ func (s StateEvening) Name() string {
 }
 
 func (s StateEvening) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{51, 193, 255, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{51, 193, 255, 1})
+	}
 }
 
 // Night
@@ -193,11 +218,14 @@ func (s StateNight) Name() string {
 }
 
 func (s StateNight) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	txt.Color = colornames.White
-	win.Clear(color.RGBA{74, 58, 94, 1})
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		txt.Color = colornames.White
+		win.Clear(color.RGBA{74, 58, 94, 1})
+	}
 }
 
 // Midnight
@@ -215,17 +243,13 @@ func (s StateMidnight) Name() string {
 }
 
 func (s StateMidnight) Update(txt *text.Text, win *pixelgl.Window) {
-	txt.Clear()
-	txt.Dot = txt.Orig
-	fmt.Fprintln(txt, s.Name())
-	win.Clear(color.RGBA{30, 24, 38, 1})
-}
-
-var tmpFile string = "/tmp/week"
-var debug bool = false
-
-var locale = map[string]string{
-	"gameTitle": "7 Days a Week",
+	if win.JustPressed(pixelgl.KeyEnter) {
+		s.Go()
+		txt.Clear()
+		txt.Dot = txt.Orig
+		fmt.Fprintln(txt, s.Name())
+		win.Clear(color.RGBA{30, 24, 38, 1})
+	}
 }
 
 func getFlags() bool {
@@ -274,14 +298,9 @@ func run() {
 	}
 	day.CurrentState = day.States["dawn"]
 
-	// win.Clear(color.RGBA{7, 15, 35, 1})
-	// win.Clear(color.RGBA{74, 58, 94, 1})
 	for !win.Closed() {
 		txt.Draw(win, pixel.IM.Moved(win.Bounds().Center().Sub(txt.Bounds().Center())))
-		if win.JustPressed(pixelgl.KeyEnter) {
-			day.CurrentState.Update(txt, win)
-			day.CurrentState.Go()
-		}
+		day.CurrentState.Update(txt, win)
 		win.Update()
 		writer.Flush()
 	}
