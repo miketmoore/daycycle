@@ -7,6 +7,7 @@ import (
 	"image/color"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
@@ -21,8 +22,16 @@ import (
 // https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
 
 var locale = map[string]string{
-	"gameTitle":    "Day Cycle",
-	"gameSubTitle": "Press Enter",
+	"title":     "Day Cycle",
+	"subtitle":  "Press Enter",
+	"dawn":      "dawn",
+	"morning":   "morning",
+	"noon":      "noon",
+	"afternoon": "afternoon",
+	"dusk":      "dusk",
+	"evening":   "evening",
+	"night":     "night",
+	"midnight":  "midnight",
 }
 
 type StateName string
@@ -84,7 +93,7 @@ func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
 }
 
 func (s StateDawn) Name() string {
-	return "Dawn"
+	return strings.Title(locale["dawn"])
 }
 
 // Morning
@@ -97,7 +106,7 @@ func (s StateMorning) Go() {
 }
 
 func (s StateMorning) Name() string {
-	return "Morning"
+	return strings.Title(locale["morning"])
 }
 
 func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
@@ -120,7 +129,7 @@ func (s StateNoon) Go() {
 }
 
 func (s StateNoon) Name() string {
-	return "Noon"
+	return strings.Title(locale["noon"])
 }
 
 func (s StateNoon) Update(txt *text.Text, win *pixelgl.Window) {
@@ -143,7 +152,7 @@ func (s StateAfternoon) Go() {
 }
 
 func (s StateAfternoon) Name() string {
-	return "Afternoon"
+	return strings.Title(locale["afternoon"])
 }
 
 func (s StateAfternoon) Update(txt *text.Text, win *pixelgl.Window) {
@@ -166,7 +175,7 @@ func (s StateDusk) Go() {
 }
 
 func (s StateDusk) Name() string {
-	return "Dusk"
+	return strings.Title(locale["dusk"])
 }
 
 func (s StateDusk) Update(txt *text.Text, win *pixelgl.Window) {
@@ -189,7 +198,7 @@ func (s StateEvening) Go() {
 }
 
 func (s StateEvening) Name() string {
-	return "Evening"
+	return strings.Title(locale["evening"])
 }
 
 func (s StateEvening) Update(txt *text.Text, win *pixelgl.Window) {
@@ -212,7 +221,7 @@ func (s StateNight) Go() {
 }
 
 func (s StateNight) Name() string {
-	return "Night"
+	return strings.Title(locale["night"])
 }
 
 func (s StateNight) Update(txt *text.Text, win *pixelgl.Window) {
@@ -235,7 +244,7 @@ func (s StateMidnight) Go() {
 }
 
 func (s StateMidnight) Name() string {
-	return "Midnight"
+	return strings.Title(locale["midnight"])
 }
 
 func (s StateMidnight) Update(txt *text.Text, win *pixelgl.Window) {
@@ -264,7 +273,7 @@ func run() {
 
 	// Setup fonts
 	txt := initText()
-	lines := []string{locale["gameTitle"], locale["gameSubTitle"]}
+	lines := []string{locale["title"], locale["subtitle"]}
 	for _, line := range lines {
 		txt.Dot.X -= txt.BoundsOf(line).W() / 2
 		fmt.Fprintln(txt, line)
@@ -272,7 +281,7 @@ func run() {
 
 	// Setup GUI window
 	cfg := pixelgl.WindowConfig{
-		Title:  locale["gameTitle"],
+		Title:  locale["title"],
 		Bounds: pixel.R(0, 0, 400, 225),
 		VSync:  true,
 	}
