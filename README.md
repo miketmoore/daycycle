@@ -1,3 +1,4 @@
-# Go Finite State Machine
+# Go Day Cycle
 
-I am figuring out how to implement the Finite State Machine pattern in go.
+I am figuring out how to implement the state pattern in Go
+
