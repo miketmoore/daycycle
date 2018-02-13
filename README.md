@@ -8,6 +8,12 @@ Press enter to cycle through the phases of one day.
 
 ![alt text](assets/day_cycle_01.png)
 
+## Run
+
+```
+go run cmd/daycycle/daycycle.go
+```
+
 ## References
 
 * Names for parts of the day: https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
