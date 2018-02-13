@@ -83,7 +83,6 @@ func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Dawn])
@@ -111,7 +110,6 @@ func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Morning])
@@ -135,7 +133,6 @@ func (s StateNoon) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Noon])
@@ -159,7 +156,6 @@ func (s StateAfternoon) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Afternoon])
@@ -183,7 +179,6 @@ func (s StateDusk) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Dusk])
@@ -207,7 +202,6 @@ func (s StateEvening) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Evening])
@@ -231,7 +225,6 @@ func (s StateNight) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
 		win.Clear(palette[Night])
@@ -255,7 +248,6 @@ func (s StateMidnight) Update(txt *text.Text, win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		s.Go()
 		txt.Clear()
-		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		win.Clear(palette[Midnight])
 	}
