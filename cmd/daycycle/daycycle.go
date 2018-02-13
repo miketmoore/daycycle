@@ -21,9 +21,10 @@ import (
 
 // https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
 
+// i18n
 var locale = map[string]string{
-	"title":     "Day Cycle",
-	"subtitle":  "Press Enter",
+	"title":     "day cycle",
+	"subtitle":  "press enter",
 	"dawn":      "dawn",
 	"morning":   "morning",
 	"noon":      "noon",
@@ -281,7 +282,7 @@ func run() {
 
 	// Setup fonts
 	txt := initText()
-	lines := []string{locale["title"], locale["subtitle"]}
+	lines := []string{strings.Title(locale["title"]), strings.Title(locale["subtitle"])}
 	for _, line := range lines {
 		txt.Dot.X -= txt.BoundsOf(line).W() / 2
 		fmt.Fprintln(txt, line)
