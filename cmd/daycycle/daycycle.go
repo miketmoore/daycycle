@@ -60,6 +60,8 @@ var palette = map[StateName]color.RGBA{
 
 var tmpFile string = "/tmp/week"
 var debug bool = false
+var writer *bufio.Writer
+var logger *log.Logger
 
 type State interface {
 	Name() string
@@ -262,13 +264,19 @@ func getFlags() bool {
 	return *d
 }
 
+func d(s ...interface{}) {
+	if debug == true {
+		logger.Print(s)
+	}
+}
+
 // pixel "main"
 func run() {
 	debug = getFlags()
 
 	// Setup a logger
-	writer, logger := initLogger()
-	logger.Print("run")
+	writer, logger = initLogger()
+	d("run")
 	writer.Flush()
 
 	// Setup fonts
