@@ -25,15 +25,28 @@ var locale = map[string]string{
 	"gameTitle": "Day Cycle",
 }
 
-var palette = map[string]color.RGBA{
-	"dawn":      color.RGBA{247, 118, 37, 1},
-	"morning":   color.RGBA{237, 182, 83, 1},
-	"noon":      color.RGBA{51, 193, 255, 1},
-	"afternoon": color.RGBA{51, 193, 255, 1},
-	"dusk":      color.RGBA{92, 56, 214, 1},
-	"evening":   color.RGBA{51, 193, 255, 1},
-	"night":     color.RGBA{74, 58, 94, 1},
-	"midnight":  color.RGBA{30, 24, 38, 1},
+type StateName string
+
+const (
+	Dawn      StateName = "dawn"
+	Morning   StateName = "morning"
+	Noon      StateName = "noon"
+	Afternoon StateName = "afternoon"
+	Dusk      StateName = "dusk"
+	Evening   StateName = "evening"
+	Night     StateName = "night"
+	Midnight  StateName = "midnight"
+)
+
+var palette = map[StateName]color.RGBA{
+	Dawn:      color.RGBA{247, 118, 37, 1},
+	Morning:   color.RGBA{237, 182, 83, 1},
+	Noon:      color.RGBA{51, 193, 255, 1},
+	Afternoon: color.RGBA{51, 193, 255, 1},
+	Dusk:      color.RGBA{92, 56, 214, 1},
+	Evening:   color.RGBA{51, 193, 255, 1},
+	Night:     color.RGBA{74, 58, 94, 1},
+	Midnight:  color.RGBA{30, 24, 38, 1},
 }
 
 var tmpFile string = "/tmp/week"
@@ -70,7 +83,6 @@ type StateDawn struct {
 }
 
 func (s StateDawn) Go() {
-	fmt.Printf("StateDawn Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["morning"]
 }
 
@@ -81,7 +93,7 @@ func (s StateDawn) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["dawn"])
+		win.Clear(palette[Dawn])
 	}
 }
 
@@ -95,7 +107,6 @@ type StateMorning struct {
 }
 
 func (s StateMorning) Go() {
-	fmt.Printf("StateMorning Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["noon"]
 }
 
@@ -110,7 +121,7 @@ func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["morning"])
+		win.Clear(palette[Morning])
 	}
 }
 
@@ -120,7 +131,6 @@ type StateNoon struct {
 }
 
 func (s StateNoon) Go() {
-	fmt.Printf("StateNoon Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["afternoon"]
 }
 
@@ -135,7 +145,7 @@ func (s StateNoon) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["noon"])
+		win.Clear(palette[Noon])
 	}
 }
 
@@ -145,7 +155,6 @@ type StateAfternoon struct {
 }
 
 func (s StateAfternoon) Go() {
-	fmt.Printf("StateAfternoon Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["dusk"]
 }
 
@@ -160,7 +169,7 @@ func (s StateAfternoon) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["afternoon"])
+		win.Clear(palette[Afternoon])
 	}
 }
 
@@ -170,7 +179,6 @@ type StateDusk struct {
 }
 
 func (s StateDusk) Go() {
-	fmt.Printf("StateDusk Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["evening"]
 }
 
@@ -185,7 +193,7 @@ func (s StateDusk) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["dusk"])
+		win.Clear(palette[Dusk])
 	}
 }
 
@@ -195,7 +203,6 @@ type StateEvening struct {
 }
 
 func (s StateEvening) Go() {
-	fmt.Printf("StateEvening Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["night"]
 }
 
@@ -210,7 +217,7 @@ func (s StateEvening) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["evening"])
+		win.Clear(palette[Evening])
 	}
 }
 
@@ -220,7 +227,6 @@ type StateNight struct {
 }
 
 func (s StateNight) Go() {
-	fmt.Printf("StateNight Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["midnight"]
 }
 
@@ -235,7 +241,7 @@ func (s StateNight) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
 		txt.Color = colornames.White
-		win.Clear(palette["night"])
+		win.Clear(palette[Night])
 	}
 }
 
@@ -245,7 +251,6 @@ type StateMidnight struct {
 }
 
 func (s StateMidnight) Go() {
-	fmt.Printf("StateMidnight Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["dawn"]
 }
 
@@ -259,7 +264,7 @@ func (s StateMidnight) Update(txt *text.Text, win *pixelgl.Window) {
 		txt.Clear()
 		txt.Dot = txt.Orig
 		fmt.Fprintln(txt, s.Name())
-		win.Clear(palette["midnight"])
+		win.Clear(palette[Midnight])
 	}
 }
 
