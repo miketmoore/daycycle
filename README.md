@@ -1,4 +1,4 @@
-# Go Day Cycle
+# Sketch: Day Cycle
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/miketmoore/go-daycycle)](https://goreportcard.com/report/github.com/miketmoore/go-daycycle)
 
