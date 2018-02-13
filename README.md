@@ -1,5 +1,7 @@
 # Go Day Cycle
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/miketmoore/go-daycycle)](https://goreportcard.com/report/github.com/miketmoore/go-daycycle)
+
 This started as a way to learn about the state pattern and to work with the pixel game engine.
 
 Press enter to cycle through the phases of one day.
