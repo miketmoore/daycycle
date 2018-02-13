@@ -53,7 +53,7 @@ func (d *Day) Start(stateKey string) {
 
 // Dawn
 type StateDawn struct {
-	context Day
+	context *Day
 }
 
 func (s StateDawn) Go() {
@@ -81,10 +81,11 @@ func (s StateDawn) Name() string {
 
 // Morning
 type StateMorning struct {
-	context Day
+	context *Day
 }
 
 func (s StateMorning) Go() {
+	fmt.Printf("StateMorning Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["noon"]
 }
 
@@ -108,10 +109,11 @@ func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
 
 // Noon
 type StateNoon struct {
-	context Day
+	context *Day
 }
 
 func (s StateNoon) Go() {
+	fmt.Printf("StateNoon Go %T\nn", s.context.CurrentState)
 	s.context.CurrentState = s.context.States["dawn"]
 }
 
@@ -176,15 +178,17 @@ func run() {
 		panic(err)
 	}
 
+	var day = &Day{
+	// States:       states,
+	// CurrentState: states["dawn"],
+	}
 	var states = map[string]State{
-		"dawn":    StateDawn{},
-		"morning": StateMorning{},
-		"noon":    StateNoon{},
+		"dawn":    StateDawn{day},
+		"morning": StateMorning{day},
+		"noon":    StateNoon{day},
 	}
-	day := Day{
-		States:       states,
-		CurrentState: states["dawn"],
-	}
+	day.States = states
+	day.CurrentState = day.States["dawn"]
 	win.Clear(color.RGBA{7, 15, 35, 1})
 	for !win.Closed() {
 		txt.Draw(win, pixel.IM.Moved(win.Bounds().Center().Sub(txt.Bounds().Center())))
@@ -192,20 +196,20 @@ func run() {
 		if fmt.Sprintf("%T", day.CurrentState) == "main.StateDawn" {
 			if win.JustPressed(pixelgl.KeyEnter) {
 				day.CurrentState.Update(txt, win)
-				day.CurrentState = states["morning"]
-				// day.CurrentState.Go()
+				// day.CurrentState = day.States["morning"]
+				day.CurrentState.Go()
 			}
 		} else if fmt.Sprintf("%T", day.CurrentState) == "main.StateMorning" {
 			if win.JustPressed(pixelgl.KeyEnter) {
 				day.CurrentState.Update(txt, win)
-				day.CurrentState = states["noon"]
-				// day.CurrentState.Go()
+				// day.CurrentState = day.States["noon"]
+				day.CurrentState.Go()
 			}
 		} else if fmt.Sprintf("%T", day.CurrentState) == "main.StateNoon" {
 			if win.JustPressed(pixelgl.KeyEnter) {
 				day.CurrentState.Update(txt, win)
-				day.CurrentState = states["dawn"]
-				// day.CurrentState.Go()
+				// day.CurrentState = day.States["dawn"]
+				day.CurrentState.Go()
 			}
 		}
 		win.Update()
