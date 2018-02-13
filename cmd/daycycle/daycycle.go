@@ -22,7 +22,8 @@ import (
 // https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
 
 var locale = map[string]string{
-	"gameTitle": "Day Cycle",
+	"gameTitle":    "Day Cycle",
+	"gameSubTitle": "Press Enter",
 }
 
 type StateName string
@@ -39,14 +40,14 @@ const (
 )
 
 var palette = map[StateName]color.RGBA{
-	Dawn:      color.RGBA{247, 118, 37, 1},
-	Morning:   color.RGBA{237, 182, 83, 1},
-	Noon:      color.RGBA{51, 193, 255, 1},
-	Afternoon: color.RGBA{51, 193, 255, 1},
-	Dusk:      color.RGBA{92, 56, 214, 1},
-	Evening:   color.RGBA{51, 193, 255, 1},
-	Night:     color.RGBA{74, 58, 94, 1},
-	Midnight:  color.RGBA{30, 24, 38, 1},
+	Dawn:      color.RGBA{25, 26, 21, 1},
+	Morning:   color.RGBA{73, 61, 63, 1},
+	Noon:      color.RGBA{105, 94, 88, 1},
+	Afternoon: color.RGBA{143, 133, 124, 1},
+	Dusk:      color.RGBA{105, 94, 88, 1},
+	Evening:   color.RGBA{73, 61, 63, 1},
+	Night:     color.RGBA{25, 26, 21, 1},
+	Midnight:  colornames.Black,
 }
 
 var tmpFile string = "/tmp/week"
@@ -279,6 +280,7 @@ func run() {
 	// Setup fonts
 	txt := initText()
 	fmt.Fprintln(txt, locale["gameTitle"])
+	fmt.Fprintln(txt, locale["gameSubTitle"])
 
 	// Setup GUI window
 	cfg := pixelgl.WindowConfig{
