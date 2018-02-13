@@ -276,7 +276,7 @@ func run() {
 	debug = getFlags()
 
 	// Setup a logger
-	writer, logger = initLogger()
+	initLogger()
 	d("run")
 	writer.Flush()
 
@@ -328,14 +328,13 @@ func main() {
 	pixelgl.Run(run)
 }
 
-func initLogger() (*bufio.Writer, *log.Logger) {
+func initLogger() {
 	f, err := os.Create(tmpFile)
 	if err != nil {
 		panic(err)
 	}
-	writer := bufio.NewWriter(f)
-	logger := log.New(writer, "INFO: ", log.Lshortfile)
-	return writer, logger
+	writer = bufio.NewWriter(f)
+	logger = log.New(writer, "INFO: ", log.Lshortfile)
 }
 
 func initText() *text.Text {
