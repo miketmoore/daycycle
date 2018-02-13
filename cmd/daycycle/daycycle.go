@@ -12,7 +12,6 @@ import (
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/faiface/pixel/text"
 	"golang.org/x/image/colornames"
-	"golang.org/x/image/font/basicfont"
 )
 
 // "Day Cycle" is an implementation of the state pattern in Go.
@@ -336,9 +335,8 @@ func initLogger() (*bufio.Writer, *log.Logger) {
 }
 
 func initText() *text.Text {
-	atlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
 	orig := pixel.V(20, 50)
-	txt := text.New(orig, atlas)
+	txt := text.New(orig, text.Atlas7x13)
 	txt.Color = colornames.White
 	return txt
 }
