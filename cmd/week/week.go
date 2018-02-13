@@ -29,34 +29,36 @@ type State interface {
 	InputHandler
 	Name() string
 	Update(*text.Text, *pixelgl.Window)
+	Go()
 }
 
 // FSM Parts of a Day
 type Day struct {
 	States       map[string]State
-	currentState State
+	CurrentState State
 }
 
 func (d *Day) Change(stateKey string) {
 	fmt.Printf("Day Change to %s\n", stateKey)
-	fmt.Printf("0 %T\n", d.currentState)
-	d.currentState = d.States[stateKey]
-	fmt.Printf("1 %T\n", d.currentState)
+	fmt.Printf("0 %T\n", d.CurrentState)
+	d.CurrentState = d.States[stateKey]
+	fmt.Printf("1 %T\n", d.CurrentState)
 }
 
 func (d *Day) Start(stateKey string) {
 	fmt.Printf("Day Start stateKey: %s\n", stateKey)
-	d.currentState = d.States[stateKey]
-	fmt.Printf("Day Start currentState type: %T\n", d.currentState)
-}
-
-func (d *Day) CurrentState() State {
-	return d.currentState
+	d.CurrentState = d.States[stateKey]
+	fmt.Printf("Day Start CurrentState type: %T\n", d.CurrentState)
 }
 
 // Dawn
 type StateDawn struct {
 	context Day
+}
+
+func (s StateDawn) Go() {
+	fmt.Printf("StateDawn Go %T\nn", s.context.CurrentState)
+	s.context.CurrentState = s.context.States["morning"]
 }
 
 func (s StateDawn) HandleInput(win *pixelgl.Window) {
@@ -82,6 +84,10 @@ type StateMorning struct {
 	context Day
 }
 
+func (s StateMorning) Go() {
+	s.context.CurrentState = s.context.States["noon"]
+}
+
 func (s StateMorning) HandleInput(win *pixelgl.Window) {
 	if win.JustPressed(pixelgl.KeyEnter) {
 		fmt.Println("StateMorning HandleInput (to StateDawn)")
@@ -103,6 +109,10 @@ func (s StateMorning) Update(txt *text.Text, win *pixelgl.Window) {
 // Noon
 type StateNoon struct {
 	context Day
+}
+
+func (s StateNoon) Go() {
+	s.context.CurrentState = s.context.States["dawn"]
 }
 
 func (s StateNoon) HandleInput(win *pixelgl.Window) {
@@ -171,24 +181,31 @@ func run() {
 		"morning": StateMorning{},
 		"noon":    StateNoon{},
 	}
-	var state State = states["dawn"]
+	day := Day{
+		States:       states,
+		CurrentState: states["dawn"],
+	}
 	win.Clear(color.RGBA{7, 15, 35, 1})
 	for !win.Closed() {
 		txt.Draw(win, pixel.IM.Moved(win.Bounds().Center().Sub(txt.Bounds().Center())))
-		if fmt.Sprintf("%T", state) == "main.StateDawn" {
+		fmt.Printf("%T\n", day.CurrentState)
+		if fmt.Sprintf("%T", day.CurrentState) == "main.StateDawn" {
 			if win.JustPressed(pixelgl.KeyEnter) {
-				state.Update(txt, win)
-				state = states["morning"]
+				day.CurrentState.Update(txt, win)
+				day.CurrentState = states["morning"]
+				// day.CurrentState.Go()
 			}
-		} else if fmt.Sprintf("%T", state) == "main.StateMorning" {
+		} else if fmt.Sprintf("%T", day.CurrentState) == "main.StateMorning" {
 			if win.JustPressed(pixelgl.KeyEnter) {
-				state.Update(txt, win)
-				state = states["noon"]
+				day.CurrentState.Update(txt, win)
+				day.CurrentState = states["noon"]
+				// day.CurrentState.Go()
 			}
-		} else if fmt.Sprintf("%T", state) == "main.StateNoon" {
+		} else if fmt.Sprintf("%T", day.CurrentState) == "main.StateNoon" {
 			if win.JustPressed(pixelgl.KeyEnter) {
-				state.Update(txt, win)
-				state = states["dawn"]
+				day.CurrentState.Update(txt, win)
+				day.CurrentState = states["dawn"]
+				// day.CurrentState.Go()
 			}
 		}
 		win.Update()
