@@ -22,7 +22,7 @@ import (
 // https://english.stackexchange.com/questions/28498/precise-names-for-parts-of-a-day
 
 var locale = map[string]string{
-	"gameTitle": "7 Days a Week",
+	"gameTitle": "Day Cycle",
 }
 
 var tmpFile string = "/tmp/week"
