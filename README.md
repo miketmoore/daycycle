@@ -6,7 +6,7 @@ This started as a way to learn about the state pattern and to work with the pixe
 
 Press enter to cycle through the phases of one day.
 
-![alt text](assets/day_cycle_01.png)
+<img src="assets/day_cycle_01.png" width="400">
 
 ## Run
 
