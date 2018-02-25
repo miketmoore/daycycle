@@ -1,6 +1,6 @@
 # Sketch: Day Cycle
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/miketmoore/daycycle)](https://goreportcard.com/report/github.com/miketmoore/daycycle)
+[![Go Report Card](https://goreportcard.com/badge/github.com/miketmoore/sketch-daycycle)](https://goreportcard.com/report/github.com/miketmoore/sketch-daycycle)
 
 This started as a way to learn about the state pattern and to work with the pixel game engine.
 
